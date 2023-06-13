@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.spirale.TourPackages.entity.TravelPackages;
@@ -18,6 +19,7 @@ import java.util.List;
 
 
 @RestController
+@RequestMapping("/packages")
 public class TravelPackageController {
 	@Autowired
 	TravelPackageService service;
@@ -30,9 +32,9 @@ public class TravelPackageController {
 	
 	
 @PostMapping("/create")
+
 public TravelPackages addPackage(@RequestBody TravelPackages pack ) {
 	return service.create(pack); 
-	
 }
 
 @GetMapping("/getAll")
@@ -55,5 +57,11 @@ public Optional<TravelPackages> getOne(@PathVariable Integer packageId) {
 public ResponseObject delete( @PathVariable Integer packageId) {
 	return service.deletePackage(packageId);
 }
+
+@GetMapping("/findFiled")
+public Integer getJoinInformation() {
+	return service.getinfo();
+}
+
 }
 

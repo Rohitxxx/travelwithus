@@ -42,8 +42,12 @@ public class TravelPackageService {
 }
 	public ResponseObject updatepack(TravelPackages pack ) {
 		Optional<TravelPackages> packageDetails= tavelPackageRepostory.findById(pack.getPackageId());
-		if(packageDetails.isPresent() && pack.equals(packageDetails))
+		TravelPackages packages= packageDetails.get();
+		if(packageDetails.isPresent() && pack.equals(packages))
+			
+			
 		{
+			
 			return new ResponseObject("Data already present",packageDetails,"ok");
 		}
 		else {
@@ -54,4 +58,11 @@ public class TravelPackageService {
 		
 		
 	}
+	
+	public Integer getinfo() {
+		return tavelPackageRepostory.getJoinInformation();
+		
+	}
+	
+	
 }
