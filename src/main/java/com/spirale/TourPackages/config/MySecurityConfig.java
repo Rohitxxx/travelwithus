@@ -1,5 +1,6 @@
 package com.spirale.TourPackages.config;
 
+<<<<<<< HEAD
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -54,3 +55,8 @@ public class MySecurityConfig extends WebSecurityConfigurerAdapter {
         return super.authenticationManagerBean();
     }
 }
+=======
+public class MySecurityConfig {
+
+}
+>>>>>>> e8607e90e2220c4f0312cc533843569cb5ad52ab

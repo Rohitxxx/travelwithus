@@ -1,6 +1,7 @@
 package com.spirale.TourPackages.service;
 
 import java.nio.file.attribute.UserPrincipalNotFoundException;
+<<<<<<< HEAD
 import java.util.ArrayList;
 import java.util.Optional;
 
@@ -8,6 +9,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+=======
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+>>>>>>> e8607e90e2220c4f0312cc533843569cb5ad52ab
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -25,6 +31,7 @@ public class CustomerService implements UserDetailsService {
 
 	@Autowired
 	CustomerRespository customerRespository;
+<<<<<<< HEAD
 
 	public ResponseObject create(Customer cus) {
 
@@ -41,6 +48,52 @@ public class CustomerService implements UserDetailsService {
 		return customerRespository.findAll();
 	}
 
+=======
+	
+	public ResponseObject create(Customer cus) {
+		
+		BCryptPasswordEncoder bcrypt=new BCryptPasswordEncoder();
+		String encryptedpwd=bcrypt.encode(cus.getPassword());
+		cus.setPassword(encryptedpwd);
+		cus.setConfirmPassword(encryptedpwd);
+		 customerRespository.save(cus);
+		return new ResponseObject("SignUp successful",cus,"200");
+		
+	}
+	
+	
+	
+	
+	
+	public ResponseObject  confirmUser(LoginDto loginDto) 
+	{
+	BCryptPasswordEncoder bcrypt=new BCryptPasswordEncoder();
+	
+		Optional<Customer> dbUser=customerRespository.findByEmail(loginDto.getEmail());
+		if(dbUser.isPresent()) {
+			Customer cusDetail=dbUser.get();
+			
+			String password= loginDto.getPassword();
+			String encodedPassword= cusDetail.getPassword();
+			Boolean isPassRight=bcrypt.matches(password, encodedPassword);
+			
+			if(isPassRight && loginDto.getEmail().equals(cusDetail.getEmail()))
+			      return new ResponseObject("LOGIN SuccessFull",loginDto,"200");
+			else
+				return  new ResponseObject("User name or password wrong",loginDto,"404");
+		}
+		return new ResponseObject("User not found",loginDto,"404");
+	}
+
+	
+	
+	
+	public java.util.List<Customer> getAll() {
+		return customerRespository.findAll();
+	}
+	
+	
+>>>>>>> e8607e90e2220c4f0312cc533843569cb5ad52ab
 	public Optional<Customer> getOne(Integer customerId) {
 		return customerRespository.findById(customerId);
 
@@ -56,6 +109,7 @@ public class CustomerService implements UserDetailsService {
 		}
 	}
 
+<<<<<<< HEAD
 	public ResponseObject updateCustomer(Customer cus) {
 		Optional<Customer> customerDetails = customerRespository.findById(cus.getCustomerId());
 		if (customerDetails.isPresent() && cus.equals(customerDetails)) {
@@ -66,11 +120,17 @@ public class CustomerService implements UserDetailsService {
 		}
 
 	}
+=======
+
+
+
+>>>>>>> e8607e90e2220c4f0312cc533843569cb5ad52ab
 
 	public boolean existsByEmail(String email) {
 		return customerRespository.existsByEmail(email);
 	}
 
+<<<<<<< HEAD
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		BCryptPasswordEncoder bcrypt = new BCryptPasswordEncoder();
@@ -110,4 +170,13 @@ public class CustomerService implements UserDetailsService {
 	 * ResponseObject("User not found",loginDto,"404"); }
 	 */
 
+=======
+
+
+
+
+	
+
+	
+>>>>>>> e8607e90e2220c4f0312cc533843569cb5ad52ab
 }

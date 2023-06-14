@@ -35,6 +35,7 @@ public class TravelPackageController {
 @PostMapping("/create")
 
 public TravelPackages addPackage(@RequestBody TravelPackages pack ) {
+<<<<<<< HEAD
 	 TravelPackages create = service.create(pack);
 	 Booking booking = new Booking();
 	 
@@ -46,6 +47,9 @@ public TravelPackages addPackage(@RequestBody TravelPackages pack ) {
 		 */
 	 
 	 return null;
+=======
+	return service.create(pack); 
+>>>>>>> e8607e90e2220c4f0312cc533843569cb5ad52ab
 }
 
 @GetMapping("/getAll")
